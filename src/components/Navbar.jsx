@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 import { HiOutlineSearch } from "react-icons/hi";
@@ -14,9 +14,9 @@ const Navbar = () => {
   const { user } = useUser()
 
   const navigate = useNavigate()
-
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const handleAddProduct = () => {
-    user ? navigate("/sell") : null;
+    user ? navigate("/sell") : setIsLoginOpen(true);
   }
   
   return (
@@ -55,7 +55,7 @@ const Navbar = () => {
           <RoundNavButton icon={FaRegHeart} />
 
 
-          <UserInfoNav />
+          <UserInfoNav setIsLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
 
           <SellButton onClick={handleAddProduct} />
         </div>

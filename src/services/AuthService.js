@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { auth, db, provider } from "../config/firebase";
 import { addDoc, collection } from "firebase/firestore";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, updateProfile } from "firebase/auth";
 
 // ========================================================================================
 // SIGN IN FUNCTION
@@ -40,10 +40,21 @@ export const signUp = async ({ name, email, password }) => {
     console.log(name, email, password)
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
+    try {
+      await updateProfile(userCredential.user, {
+        displayName: name
+      });
+      console.log("Profile updated successfully:", userCredential.user.displayName);
+    } catch (profileError) {
+      console.error("Error updating profile:", profileError);
+      toast.error("Failed to set display name");
+    }
+
     await addDoc(collection(db, "users"), {
       uid: userCredential.user.uid,
       name,
-      email
+      email,
+      displayName: name
     });
     toast.success("Account created successfully!");
   } catch (error) {

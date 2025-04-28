@@ -22,32 +22,29 @@ const Login = ({ setIsLoginOpen }) => {
 
     try {
       if (signState === "Log In") {
-        await signIn(email, password);
-        setEmail("");
-        setPassword("");
-        navigate("/");
+        await signIn({ email, password });
       } else {
-        await signUp(name, email, password);
-        setName("");
-        setEmail("");
-        setPassword("");
-        setSignState("Log In");
+        await signUp({ name, email, password });
       }
+      setName("");
+      setEmail("");
+      setPassword("");
+      setIsLoginOpen(false);
     } catch (error) {
       toast.error(error.message || "Something went wrong");
     }
   };
 
   const signUpWithGoogle = async () => {
-    await google()
-    navigate("/")
-  }
+    await google();
+    navigate("/");
+  };
 
   return (
     <div className="flex fixed inset-0 justify-center items-center z-20 bg-black/80">
       <div className="w-96 h-[450px] bg-white p-4 rounded-md shadow-md">
         <div className="flex justify-end">
-          <button onClick={() => setIsLoginOpen(false)} >
+          <button onClick={() => setIsLoginOpen(false)}>
             <MdClose className="text-3xl hover:text-red-600 cursor-pointer" />
           </button>
         </div>
@@ -103,10 +100,12 @@ const Login = ({ setIsLoginOpen }) => {
 
         <div className="flex flex-col items-center gap-2">
           <p>or</p>
-          <button onClick={signUpWithGoogle} className="flex items-center gap-4 justify-center w-full border-2 border-black p-2 rounded-md hover:border-green-700 hover:text-green-700">
-  <FaGoogle className="text-2xl " /> Continue with Google
-</button>
-
+          <button
+            onClick={signUpWithGoogle}
+            className="flex items-center gap-4 justify-center w-full border-2 border-black p-2 rounded-md hover:border-green-700 hover:text-green-700"
+          >
+            <FaGoogle className="text-2xl " /> Continue with Google
+          </button>
         </div>
       </div>
     </div>

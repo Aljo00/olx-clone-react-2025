@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RoundNavButton from "../Buttons/RoundNavButton";
 import { FiMessageCircle } from "react-icons/fi";
 import { FaRegBell } from "react-icons/fa";
@@ -16,12 +16,12 @@ import Login from "../Login";
 import { logOut } from "../../services/AuthService";
 import { toast } from "react-toastify";
 
-const UserInfoNav = () => {
+const UserInfoNav = ({ setIsLoginOpen, isLoginOpen }) => {
     const { user } = useUser()
-    const name = user ? user.displayName : "Guest";
+    const name = user?.displayName || "Guest";
 
     const [menu, setMenu] = useState(false);
-    const [isLoginOpen, setIsLoginOpen] = useState(false)
+    // const [isLoginOpen, setIsLoginOpen] = useState(false)
 
     const handleUserMenu = () => {
         setMenu(!menu);
@@ -30,6 +30,10 @@ const UserInfoNav = () => {
     const handleSignOut = async () => {
         await logOut()
     }
+
+    useEffect(() => {
+        setMenu(false);
+    }, [user]);
 
     return (
         <div className="relative">
@@ -42,7 +46,7 @@ const UserInfoNav = () => {
                         className="flex gap-4 items-center cursor-pointer"
                     >
                         <div className="bg-purple-950 rounded-full flex justify-center text-white text-xl font-semibold items-center w-9 h-9">
-                            {name.charAt(0)}
+                            {name.toUpperCase().charAt(0)}
                         </div>
                         <IoIosArrowDown className="text-2xl cursor-pointer" />
                     </div>
@@ -52,7 +56,7 @@ const UserInfoNav = () => {
                             <div className="p-4">
                                 <div className="flex gap-2">
                                     <div className="bg-purple-950 rounded-full flex justify-center text-white text-xl font-semibold items-center w-14 h-14">
-                                        {name.charAt(0)}{" "}
+                                        {name.toUpperCase().charAt(0)}{" "}
                                     </div>
                                     <p className="text-2xl font-semibold">{name}</p>
                                 </div>
