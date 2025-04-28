@@ -3,7 +3,6 @@ import Navbar from '../components/Navbar'
 import NavBottom from '../components/Nav/NavBottom'
 import Footer from '../components/Footer'
 import Content from '../components/Content'
-import Sell from '../components/Sell'
 
 const Home = () => {
   return (
@@ -11,7 +10,6 @@ const Home = () => {
         <Navbar />
         <NavBottom />
         <Content />
-        <Sell />
         <Footer />
     </div>
   )

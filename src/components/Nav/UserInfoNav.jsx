@@ -11,19 +11,28 @@ import { IoIosHelpCircleOutline } from "react-icons/io";
 import { GrInstallOption } from "react-icons/gr";
 import { LuCreditCard } from "react-icons/lu";
 import { MdOutlineBusiness } from "react-icons/md";
+import { useUser } from "../../context/UserContext";
+import Login from "../Login";
+import { logOut } from "../../services/AuthService";
+import { toast } from "react-toastify";
 
 const UserInfoNav = () => {
-    const user = true;
-    const name = "Devil fun";
+    const { user } = useUser()
+    const name = user ? user.displayName : "Guest";
 
     const [menu, setMenu] = useState(false);
+    const [isLoginOpen, setIsLoginOpen] = useState(false)
 
     const handleUserMenu = () => {
         setMenu(!menu);
     };
 
+    const handleSignOut = async () => {
+        await logOut()
+    }
+
     return (
-        <>
+        <div className="relative">
             {user ? (
                 <div className="flex gap-4 relative">
                     <RoundNavButton icon={FiMessageCircle} />
@@ -86,7 +95,7 @@ const UserInfoNav = () => {
                                 icon={GrInstallOption}
                                 name={"Install OLX Light app"}
                             />
-                            <UserMenuButton icon={RiLogoutBoxLine} name={"Logout"} />
+                            <UserMenuButton onClick={handleSignOut} icon={RiLogoutBoxLine} name={"Logout"} />
                         </div>
                     ) : (
                         <></>
@@ -94,12 +103,12 @@ const UserInfoNav = () => {
                 </div>
             ) : (
                 <>
-                    <a href="/" className="text-black underline font-semibold">
-                        Login
-                    </a>
+                   <button onClick={() => setIsLoginOpen(true)} className="text-black underline font-semibold">Login</button>
                 </>
             )}
-        </>
+
+            {isLoginOpen && <Login setIsLoginOpen={setIsLoginOpen} />}
+        </div>
     );
 };
 

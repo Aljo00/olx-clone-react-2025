@@ -4,7 +4,7 @@ import { FaRegHeart } from "react-icons/fa";
 
 const ContentBox = () => {
   return (
-    <div className="relative border border-gray-400 p-2 rounded-md cursor-pointer   ">
+    <div className="relative border bg-white border-gray-400 p-2 rounded-md cursor-pointer   ">
       <img
         src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
         className="w-64"

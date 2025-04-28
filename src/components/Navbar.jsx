@@ -7,8 +7,18 @@ import { SellButton } from "./Buttons/SellButton";
 import RoundNavButton from "./Buttons/RoundNavButton";
 import { FaRegHeart } from "react-icons/fa";
 import UserInfoNav from "./Nav/UserInfoNav";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 const Navbar = () => {
+  const { user } = useUser()
+
+  const navigate = useNavigate()
+
+  const handleAddProduct = () => {
+    user ? navigate("/sell") : null;
+  }
+  
   return (
     <div className="shadow pb-1 sticky top-0 bg-white z-20">
       <div
@@ -47,7 +57,7 @@ const Navbar = () => {
 
           <UserInfoNav />
 
-          <SellButton />
+          <SellButton onClick={handleAddProduct} />
         </div>
 
       </div>
