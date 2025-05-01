@@ -25,7 +25,7 @@ const Navbar = () => {
         className="px-4 flex gap-4 py-[10px]"
         style={{ backgroundColor: "#eff1f3" }}
       >
-        <div>
+        <div onClick={() => navigate("/")} className="cursor-pointer">
           <img src={olxLogo} className="w-16" alt="logo" />
         </div>
         <div className="flex w-full gap-4">

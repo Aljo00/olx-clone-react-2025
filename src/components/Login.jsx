@@ -37,7 +37,7 @@ const Login = ({ setIsLoginOpen }) => {
 
   const signUpWithGoogle = async () => {
     await google();
-    navigate("/");
+    setIsLoginOpen(false);
   };
 
   return (
